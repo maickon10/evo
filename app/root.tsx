@@ -65,6 +65,8 @@ export const Head = createHead(() => (
   </>
 ));
 
+import { logStore } from './lib/stores/logs';
+
 export function Layout({ children }: { children: React.ReactNode }) {
   const theme = useStore(themeStore);
 
@@ -81,23 +83,28 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-import { logStore } from './lib/stores/logs';
-
 export default function App() {
   const theme = useStore(themeStore);
 
   useEffect(() => {
-    logStore.logSystem('Application initialized', {
+    logStore.logSystem('Aplicação inicializada', {
       theme,
-      platform: navigator.platform,
-      userAgent: navigator.userAgent,
-      timestamp: new Date().toISOString(),
+      plataforma: navigator.platform,
+      navegador: navigator.userAgent,
+      horario: new Date().toISOString(),
     });
   }, []);
 
   return (
-    <Layout>
-      <Outlet />
-    </Layout>
+    <html lang="pt-BR">
+      <head>
+        <Head />
+      </head>
+      <body>
+        <Layout>
+          <Outlet />
+        </Layout>
+      </body>
+    </html>
   );
 }
